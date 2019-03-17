@@ -1,0 +1,85 @@
+#gnuplot script
+
+#For MKL timing in png format 
+set terminal pngcairo transparent enhanced font "aerial,10" fontscale 1.0 size 600, 400 enhanced background rgb "white"
+set output 'MKL_timings.png'
+set style data lines
+set title "Box Plot for MKL"
+set xlabel "Size of Matrix"
+set xrange [0:500]
+set ylabel "Time taken for matrix mult"
+plot 'MKL_timings.txt' with errorbars, 'MKL_timings.txt' w lines
+
+
+
+#For MKL timing in eps format
+set terminal postscript eps enhanced color font 'Helvetica,10' enhanced background rgb "white"
+set output 'MKL_timings.eps'
+set style data lines
+set title "Box Plot for MKL"
+set xlabel "Size of Matrix"
+set xrange [0:500]
+set ylabel "Time taken for matrix mult"
+plot 'MKL_timings.txt' with errorbars, 'MKL_timings.txt' w lines
+
+
+
+#For OpenBLAS timing in png format
+set terminal pngcairo transparent enhanced font "aerial,10" fontscale 1.0 size 600, 400 enhanced background rgb "white"
+set output 'OpenBLAS_timings.png'
+set style data lines
+set title "Box Plot for OpenBLAS"
+set xlabel "Size of Matrix"
+set xrange [0:500]
+set ylabel "Time taken for matrix mult"
+plot 'OpenBLAS_timings.txt' with errorbars, 'OpenBLAS_timings.txt' w lines
+
+
+
+#For OpenBLAS timing in eps format
+set terminal postscript eps enhanced color font 'Helvetica,10' enhanced background rgb "white"
+set output 'OpenBLAS_timings.eps'
+set style data lines
+set title "Box Plot for OpenBLAS"
+set xlabel "Size of Matrix"
+set xrange [0:500]
+set ylabel "Time taken for matrix mult"
+plot 'OpenBLAS_timings.txt' with errorbars, 'OpenBLAS_timings.txt' w lines
+
+
+
+#For Pthread timing in png format
+set terminal pngcairo transparent enhanced font "aerial,10" fontscale 1.0 size 600, 400 enhanced background rgb "white"
+set output 'PThread_timings.png'
+set style data lines
+set title "Box Plot for PThread"
+set xlabel "Size of Matrix"
+set xrange [0:500]
+set ylabel "Time taken for matrix mult"
+plot 'PThread_timings.txt' with errorbars, 'PThread_timings.txt' w lines
+
+
+
+#For PThread timing in eps format
+set terminal postscript eps enhanced color font 'Helvetica,10' enhanced background rgb "white"
+set output 'PThread_timings.eps'
+set style data lines
+set title "Box Plot for Pthread"
+set xlabel "Size of Matrix"
+set xrange [0:500]
+set ylabel "Time taken for matrix mult"
+plot 'PThread_timings.txt' with errorbars, 'PThread_timings.txt' w lines
+
+
+
+
+
+
+
+
+#Timing Analysis:
+The time taken by MKL function is the least, while time taken by the Pthread method is highest. The order is
+MKL ~ OpenBLAS << Pthread
+
+It is very difficult to match with MKL or OpenBLAS libraries with our own Pthread implementation.  
+

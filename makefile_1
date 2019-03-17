@@ -1,0 +1,36 @@
+CC = g++ 
+CFLAGS = -c - Wall
+
+# export MKLROOT=/opt/intel/mkl
+
+MKLFLAG =  ${MKLROOT}/lib/libmkl_intel_ilp64.a ${MKLROOT}/lib/libmkl_sequential.a ${MKLROOT}/lib/libmkl_core.a -lpthread -lm -ldl  -DMKL_ILP64 -m64 -I${MKLROOT}/include
+OPENCVFLAG = $(pkg-config --cflags --libs /usr/local/Cellar/opencv/4.0.1/lib/pkgconfig/opencv4.pc) -std=c++11
+
+framework: read_image.o Layer1.o Layer2.o Layer3.o Layer4.o Layer5.o Layer6.o softmax_prob.o top5_softmax_probablity.o
+
+read_image.o: read_image.cpp
+	./bashscript.sh
+
+Layer1.o: Layer1.cpp
+	$(CC) $(MKLFLAG) -o Layer1 Layer1.cpp 
+
+Layer2.o: Layer2.cpp
+	$(CC) -o Layer2 Layer2.cpp
+
+Layer3.o: Layer3.cpp
+	$(CC) -o Layer3 Layer3.cpp $(MKLFLAG)
+
+Layer4.o: Layer4.cpp
+	$(CC) -o Layer4 Layer4.cpp
+
+Layer5.o: Layer5.cpp
+	$(CC) -o Layer5 Layer1.cpp $(MKLFLAG)
+
+Layer6.o: Layer6.cpp
+	$(CC) -o Layer6 Layer6.cpp $(MKLFLAG)
+
+softmax_prob.o: softmax_prob.cpp
+	$(CC) -o softmax_prob softmax_prob.cpp
+
+top5_softmax_probablity.o: top5_softmax_probablity.cpp
+	$(CC) -o top5_softmax_probablity top5_softmax_probablity.cpp

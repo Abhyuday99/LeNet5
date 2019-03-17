@@ -1,0 +1,21 @@
+CC = g++
+
+# export LD_LIBRARY_PATH=/opt/OpenBLAS/lib/
+# export MKLROOT=/opt/intel/mkl
+
+CBLASFLAG = -I /opt/OpenBLAS/include/ -L/opt/OpenBLAS/lib -lopenblas
+MKLFLAG =  ${MKLROOT}/lib/libmkl_intel_ilp64.a ${MKLROOT}/lib/libmkl_sequential.a ${MKLROOT}/lib/libmkl_core.a -lpthread -lm -ldl  -DMKL_ILP64 -m64 -I${MKLROOT}/include
+PTFLAG = -pthread
+
+MKL_timings:
+	$(CC) -o MKL_timings MKL_runtime_script.cpp $(MKLFLAG)
+
+OpenBLAS_timings: OpenBLAS_runtime_script.cpp
+	$(CC) -o OpenBLAS_timings OpenBLAS_runtime_script.cpp $(CBLASFLAG)
+
+PThread_timings: PThread_runtime_script.cpp
+	$(CC) $(PTFLAG) -o PThread_timings PThread_runtime_script.cpp
+
+clean:
+	rm -rf MKL_timings OpenBLAS_timings PThread_timings	
+

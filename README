@@ -1,0 +1,25 @@
+Shift the png file containing digit you wish to recognize.Then compile the preprocessing file with the command :--
+	
+	g++ $(pkg-config --cflags --libs /usr/local/Cellar/opencv/4.0.1/lib/pkgconfig/opencv4.pc) -std=c++11 read_image.cpp -o read_image
+
+Then type the following command with name of png file as one of the command line arguments. For example if filename is "digit.png" type :---
+
+	./read_image digit.png
+
+Then execute the following commands in sequence.
+
+	g++ -o Layer1 Layer1.cpp -m64 -I ${MKLROOT}/include -L ${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl 
+	./Layer1
+	g++ -o Layer2 Layer2.cpp
+	./Layer2
+	g++ -o Layer3 Layer3.cpp -m64 -I ${MKLROOT}/include -L ${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl 
+	 ./Layer3
+	g++ -o Layer4 Layer4.cpp
+	./Layer4
+	g++ -o Layer5 Layer5.cpp -m64 -I ${MKLROOT}/include -L ${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl 
+	./Layer5
+	 g++ -o Layer6 Layer6.cpp -m64 -I ${MKLROOT}/include -L ${MKLROOT}/lib/intel64 -Wl,--no-as-needed -lmkl_rt -lpthread -lm -ldl 
+	./Layer6
+	g++ -o softmax_prob softmax_prob.cpp
+	./softmax_prob 
+	
